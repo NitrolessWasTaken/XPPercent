@@ -1,10 +1,14 @@
 package net.nitroless.xppercent;
 
-import net.fabricmc.fabric.api.gamerule.v1.GameRuleFactory;
-import net.fabricmc.fabric.api.gamerule.v1.GameRuleRegistry;
-import net.minecraft.world.GameRules;
+import net.minecraft.util.Identifier;
+import net.fabricmc.fabric.api.gamerule.v1.GameRuleBuilder;
+import net.minecraft.world.rule.GameRule;
+import net.minecraft.world.rule.GameRuleCategory;
 
 public final class XPPercentGameRule {
-    public static final GameRules.Key<GameRules.IntRule> XP_PERCENTAGE = GameRuleRegistry.register("dropXPPercentage", GameRules.Category.PLAYER, GameRuleFactory.createIntRule(50));
+    public static final GameRule<Integer> XP_PERCENTAGE = GameRuleBuilder
+            .forInteger(50)
+            .category(GameRuleCategory.PLAYER)
+            .buildAndRegister(Identifier.of(XPPercent.MOD_ID, "drop_xp_percentage"));
     static void init() {}
 }

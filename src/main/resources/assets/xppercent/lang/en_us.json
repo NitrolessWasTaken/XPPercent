@@ -1,4 +1,4 @@
 {
-  "gamerule.dropXPPercentage": "Experience drop percentage",
-  "gamerule.dropXPPercentage.description": "Percentage of experience dropped on player death. Negative values act the same as 0."
+  "gamerule.xppercent.drop_xp_percentage": "Experience drop percentage",
+  "gamerule.xppercent.drop_xp_percentage.description": "Percentage of experience dropped on player death. Negative values act the same as 0."
 }

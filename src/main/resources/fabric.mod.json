@@ -5,7 +5,9 @@
   "name": "XP%",
   "description": "A simple mod to adjust XP drop amount.",
   "authors": ["Nitroless"],
-  "contact": {},
+  "contact": {
+    "issues": "https://github.com/NitrolessWasTaken/XPPercent/issues"
+  },
   "license": "MIT",
   "icon": "assets/xppercent/icon.png",
   "environment": "*",

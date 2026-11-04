@@ -1,7 +1,8 @@
 package net.nitroless.xppercent.mixin;
 
 import net.minecraft.server.world.ServerWorld;
-import net.minecraft.world.GameRules;
+import net.minecraft.world.World;
+import net.minecraft.world.rule.GameRules;
 import net.nitroless.xppercent.XPPercent;
 import net.nitroless.xppercent.XPPercentGameRule;
 import org.spongepowered.asm.mixin.Mixin;
@@ -14,17 +15,18 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 @Mixin(PlayerEntity.class)
 public abstract class PlayerEntityMixin {
 
-    @Inject(method = "getXpToDrop", at = @At("HEAD"), cancellable = true)
+    @Inject(method = "getExperienceToDrop", at = @At("HEAD"), cancellable = true)
     public void xppercent$getXpToDrop(CallbackInfoReturnable<Integer> cir) {
         PlayerEntity self = (PlayerEntity)(Object)this;
-        if (self.getWorld() instanceof ServerWorld serverWorld) {
-            double percentage = (double)(serverWorld.getGameRules().get(XPPercentGameRule.XP_PERCENTAGE).get()) / 100;
-            boolean canDrop = !self.getWorld().getGameRules().getBoolean(GameRules.KEEP_INVENTORY) && !self.isSpectator();
+        if (self.getEntityWorld() instanceof ServerWorld serverWorld) {
+            double percentage = (double)(serverWorld.getGameRules().getValue(XPPercentGameRule.XP_PERCENTAGE)) / 100;
+            boolean canDrop = !serverWorld.getGameRules().getValue(GameRules.KEEP_INVENTORY) && !self.isSpectator();
             int experience = self.getScore();
             boolean debug = XPPercent.DEBUG;
             int dropAmount = 0;
 
             if (canDrop) {
+                // im rounding twice because im swag
                 dropAmount = Math.toIntExact(Math.round(experience * (percentage)));
                 if (debug) {
                     XPPercent.LOGGER.info("dropping "+ dropAmount + " experience");
