@@ -1,7 +1,6 @@
 package net.nitroless.xppercent.mixin;
 
 import net.minecraft.server.world.ServerWorld;
-import net.minecraft.world.World;
 import net.minecraft.world.rule.GameRules;
 import net.nitroless.xppercent.XPPercent;
 import net.nitroless.xppercent.XPPercentGameRule;
