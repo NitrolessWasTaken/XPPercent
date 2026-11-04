@@ -19,7 +19,7 @@ public abstract class PlayerEntityMixin {
         PlayerEntity self = (PlayerEntity)(Object)this;
         if (self.getWorld() instanceof ServerWorld serverWorld) {
             double percentage = (double)(serverWorld.getGameRules().get(XPPercentGameRule.XP_PERCENTAGE).get()) / 100;
-            boolean canDrop = !self.getWorld().getGameRules().getBoolean(GameRules.KEEP_INVENTORY) && !self.isSpectator();
+            boolean canDrop = !serverWorld.getGameRules().getBoolean(GameRules.KEEP_INVENTORY) && !self.isSpectator();
             int experience = self.getScore();
             boolean debug = XPPercent.DEBUG;
             int dropAmount = 0;
