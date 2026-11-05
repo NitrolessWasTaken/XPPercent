@@ -7,7 +7,6 @@ import org.slf4j.LoggerFactory;
 public class XPPercent implements ModInitializer {
     public static final String MOD_ID = "xppercent";
     public static final Logger LOGGER = LoggerFactory.getLogger(MOD_ID);
-    public static final Boolean DEBUG = false;
 
     @Override
     public void onInitialize() {
