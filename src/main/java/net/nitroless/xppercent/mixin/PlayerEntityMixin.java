@@ -15,7 +15,8 @@ public abstract class PlayerEntityMixin {
     @Inject(method = "getBaseExperienceReward", at = @At("HEAD"), cancellable = true)
     public void getXpToDrop(CallbackInfoReturnable<Integer> cir) {
         Player player = (Player) (Object) this;
-        if (player.getCommandSenderWorld() instanceof ServerLevel serverWorld) {
+        // the warning is scary and it didn't happen with yarn, but it works so i will ignore it
+        if (player.level() instanceof ServerLevel serverWorld) {
             double percentage = (double)(serverWorld.getGameRules().getRule(XPPercentGameRule.XP_PERCENTAGE).getCommandResult()) / 100;
             boolean canDrop = !serverWorld.getGameRules().getBoolean(GameRules.RULE_KEEPINVENTORY) && !player.isSpectator();
             int experience = player.getScore();
