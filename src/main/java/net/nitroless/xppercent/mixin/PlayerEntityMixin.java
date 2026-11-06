@@ -1,25 +1,25 @@
 package net.nitroless.xppercent.mixin;
 
-import net.minecraft.server.world.ServerWorld;
-import net.minecraft.world.rule.GameRules;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.world.level.gamerules.GameRules;
 import net.nitroless.xppercent.XPPercent;
 import net.nitroless.xppercent.XPPercentGameRule;
 import org.spongepowered.asm.mixin.Mixin;
-import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.world.entity.player.Player;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 
-@Mixin(PlayerEntity.class)
+@Mixin(Player.class)
 public abstract class PlayerEntityMixin {
 
-    @Inject(method = "getExperienceToDrop", at = @At("HEAD"), cancellable = true)
+    @Inject(method = "getBaseExperienceReward", at = @At("HEAD"), cancellable = true)
     public void xppercent$getXpToDrop(CallbackInfoReturnable<Integer> cir) {
-        PlayerEntity self = (PlayerEntity)(Object)this;
-        if (self.getEntityWorld() instanceof ServerWorld serverWorld) {
-            double percentage = (double)(serverWorld.getGameRules().getValue(XPPercentGameRule.XP_PERCENTAGE)) / 100;
-            boolean canDrop = !serverWorld.getGameRules().getValue(GameRules.KEEP_INVENTORY) && !self.isSpectator();
+        Player self = (Player)(Object)this;
+        if (self.level() instanceof ServerLevel serverWorld) {
+            double percentage = (double)(serverWorld.getGameRules().get(XPPercentGameRule.XP_PERCENTAGE)) / 100;
+            boolean canDrop = !serverWorld.getGameRules().get(GameRules.KEEP_INVENTORY) && !self.isSpectator();
             int experience = self.getScore();
             boolean debug = XPPercent.DEBUG;
             int dropAmount = 0;
